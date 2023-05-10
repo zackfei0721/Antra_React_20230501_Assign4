@@ -80,10 +80,9 @@ myFetch('data.json', 'GET', null, function(error, data) {
     if(error) {console.log(error); }
     else {console.log('Data from myFetch(): ', data); }
 });
-// The result indicates GET using both fetch() and myFetch() could work.
-// However, I think the other methods(PUT, DELETE, POST) must be done
-// in server`s end, and I dont have any access to a working url(I used a local
-// JSON file for GET), but theoretically they should also work
+
+// The GET result is using a local JSON file included in the same folder
+// The other methods are shown with a url
 
 // PUT using fetch()
 fetch('https://jsonplaceholder.typicode.com/todos', {
@@ -115,18 +114,36 @@ myFetch('https://jsonplaceholder.typicode.com/todos', 'POST', {
 
 
 // PUT using fetch():
-
-
+fetch('https://jsonplaceholder.typicode.com/todos/1', {
+    method: 'PUT',
+    body: JSON.stringify({
+        title: 'Updated Task',
+        completed: true
+    }),
+    headers: {
+        'Content-type': 'application/json'
+    }
+})
+.then(response => response.json())
+.then(data => console.log("Data updated using fetch(): ", data));
+// PUT using myFetch():
+myFetch('https://jsonplaceholder.typicode.com/todos/1', 'PUT', {
+    title: 'Updated Task',
+    completed: true
+}, function(error, data) {
+    if(error) console.log('HTTP Error: ', error);
+    else console.log("Data updated using myFetch(): ", data);
+}
+);
 
 
 // DELETE using fetch():
 fetch('https://jsonplaceholder.typicode.com/todos/1', {
     method: 'DELETE'
 })
-.then(response => console.log('Item deleted with fetch()'))
-
+.then(response => console.log('Item deleted with fetch()'));
 // DELETE using myFetch():
 myFetch('https://jsonplaceholder.typicode.com/todos/1', 'DELETE', null, function(error, data){
     if (error) console.log('HTTP Error: ', error)
     else console.log('Item deleted successfully with myFetch()!')
-})
+});
