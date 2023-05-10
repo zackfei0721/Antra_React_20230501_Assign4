@@ -45,6 +45,7 @@ function myFetch(url, method, body, callback) {
         // value: a string representing the header value, 
         // the value you want to set for the specified header field
         xhr.setRequestHeader('Content-type', 'application/json');
+        // for PUT and POST, the JSON string is required for their body parameters
         xhr.send(JSON.stringify(body));
     }
     else {
@@ -52,7 +53,6 @@ function myFetch(url, method, body, callback) {
     }
 
 }
-const body = {name: 'Zack', age: 21};
 
 // GET using fetch():
 // .then(resolved, rejected);
@@ -83,4 +83,4 @@ myFetch('data.json', 'GET', null, function(error, data) {
 // The result indicates GET using both fetch() and myFetch() could work.
 // However, I think the other methods(PUT, DELETE, POST) must be done
 // in server`s end, and I dont have any access to a working url(I used a local
-//     JSON file for GET), but theoritically they should also work
+// JSON file for GET), but theoretically they should also work
