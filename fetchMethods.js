@@ -84,3 +84,49 @@ myFetch('data.json', 'GET', null, function(error, data) {
 // However, I think the other methods(PUT, DELETE, POST) must be done
 // in server`s end, and I dont have any access to a working url(I used a local
 // JSON file for GET), but theoretically they should also work
+
+// PUT using fetch()
+fetch('https://jsonplaceholder.typicode.com/todos', {
+    method: 'POST',
+    body: JSON.stringify({
+        userId: 1,
+        id : 201,
+        title: 'New Title',
+        completed: false
+    }),
+    headers: {
+        'Content-type': 'application/json'
+    }
+})
+.then(response => response.json())
+.then(data => console.log("POST by fetch(): ", data)) // title updated to 'updated title'
+// POST using myFetch()
+myFetch('https://jsonplaceholder.typicode.com/todos', 'POST', {
+    userId: 1,
+    id : 201,
+    title: 'New Title',
+    completed: false
+}, 
+    function(error, data) {
+        if(error) console.log('HTTP Error: ', error)
+        else console.log("POST by myFetch(): ", data)
+    }
+)
+
+
+// PUT using fetch():
+
+
+
+
+// DELETE using fetch():
+fetch('https://jsonplaceholder.typicode.com/todos/1', {
+    method: 'DELETE'
+})
+.then(response => console.log('Item deleted with fetch()'))
+
+// DELETE using myFetch():
+myFetch('https://jsonplaceholder.typicode.com/todos/1', 'DELETE', null, function(error, data){
+    if (error) console.log('HTTP Error: ', error)
+    else console.log('Item deleted successfully with myFetch()!')
+})
