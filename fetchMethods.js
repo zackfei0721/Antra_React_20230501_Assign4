@@ -63,7 +63,7 @@ fetch('data.json')
     }
     // if no error occured during the process, parse the body
     // as JSON and return its promise
-    return response.json;
+    return response.json();
 })
 .then(data => {
     // If request is successful, execute functions here that handle data
